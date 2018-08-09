@@ -1,0 +1,112 @@
+/* Class Name Triggers for Table Conditionals */
+.active {
+  background: lightblue;
+}
+.red {
+  background-color: red;
+}
+
+
+
+/* CSS styles for the reservation table layout */
+.booth{
+  height: 150px;
+  width: 100%;
+  text-align: center;
+}
+.seat{
+  height: 50px;
+  width: 100%;
+  border: 1px solid black;
+}
+.seat ~ div{
+  height: 100px;
+  width: 100%;
+}
+#displayTable .table{
+  height: 70px;
+  width: 140px;
+  margin: 10px 25px 0 25px;
+  border: 1px solid black;
+  float: left;
+}
+.high{
+  height: 500px;
+  width: 25%;
+  float: left;
+}
+.high > section{
+  height: 125px;
+  width: 100%;
+}
+.highTable{
+  height: 100px;
+  width: 100px;
+  border-radius: 100px;
+  margin: 12.5px auto;
+  border: 1px solid black;
+  text-align: center;
+}
+.round{
+  height: 200px;
+  width: 75%;
+  float: left;
+}
+.roundTable{
+  height: 130px;
+  width: 130px;
+  border-radius: 130px;
+  margin: 35px 50px 0 50px;
+  border: 1px solid black;
+  float: left;
+}
+.walk{
+  height: 300px;
+  width: 45%;
+  float: left;
+}
+.extra{
+  height: 300px;
+  width: 200px;
+  float: left;
+}
+.extra > section{
+  height: 100px;
+}
+.extraTable{
+  height: 80px;
+  width: 80px;
+  margin: 10px auto;
+  border: 1px solid black;
+  text-align: center;
+}
+.front{
+  height: 70px;
+  width: 70px;
+  margin-top: 210px;
+  margin-right: 10px;
+  border: 1px solid black;
+  float: right;
+}
+#displayTable .bar{
+  background-color: white;
+  height: 300px;
+  width: 30%;
+  float: left;
+}
+.space{
+  height: 200px;
+  width: 160px;
+  float: left;
+}
+.column{
+  height: 200px;
+  width: 130px;
+  padding-top: 40px;
+  float: left;
+}
+.column > div{
+  height: 300px;
+  width: 80px;
+  border: 1px solid black;
+}

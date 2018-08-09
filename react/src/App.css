@@ -1,0 +1,49 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+.title{
+  width: 100%;
+  float: left;
+}
+.filler{
+  height: 100px;
+  width: 33%;
+  float: left;
+}
+.Apptitle {
+  width: 33%;
+  margin: 22px 0 22px 0;
+  font-size: 3em;
+  float: left;
+}
+.App-intro {
+  font-size: large;
+}
+.navbar {
+  width: 33%;
+  margin-top: 30px;
+  padding-left: 200px;
+  float: left;
+}
+.navbarLogout{
+  width: 33%;
+  margin-top: 35px;
+  padding-left: 320px;
+  float: left;
+}
+.links{
+  color: white;
+  font-size: 1.1rem;
+  text-decoration: none;
+}
+
+#nav-container {
+  text-align: center;
+}

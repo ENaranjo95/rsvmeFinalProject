@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>RSV-Me: Restaurant</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">  <link href="https://fonts.googleapis.com/css?family=Wendy+One" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="clearfix profile">
+    <section class="link">
+      <% if (user.local.email) { %>
+        <p>
+          <strong>id</strong>:
+          <%= user._id %><br>
+            <strong>email</strong>:
+            <%= user.local.email %><br>
+        </p>
+
+    </section>
+    <section class="links">
+      <% } else { %>
+        <a href="/connect/local" class="btn btn-default">Connect Local</a>
+        <% } %>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </section>
+
+
+  </header>
+  <section class="container clearfix">
+    <h2>Front Check In</h2>
+    <section class="display">
+      <h3>Orders</h3>
+      <ul class="messages">
+        <% for(var i=0; i<customers.length; i++) {%>
+          <% if(customers[i].checkIn === false) {%>
+          <li class="message">
+            <span><%= customers[i].first %></span>
+            <span><%= customers[i].last %></span>
+            <span><%= customers[i].email %></span>
+            <span><%= customers[i].number %></span>
+            <span><%= customers[i].guests %></span>
+            <span><%= customers[i].table %></span>
+            <span><i class="fas fa-check"></i></span>
+          </li>
+          <% } %>
+        <% } %>
+      </ul>
+    </section>
+
+    <section class="display">
+      <h3>Complete</h3>
+      <ul class="messages">
+        <% for(var i=0; i<customers.length; i++) {%>
+          <% if(customers[i].checkIn === true) {%>
+          <li class="message">
+            <span><%= customers[i].first %></span>
+            <span><%= customers[i].last %></span>
+            <span><%= customers[i].email %></span>
+            <span><%= customers[i].number %></span>
+            <span><%= customers[i].guests %></span>
+            <span><%= customers[i].time %></span>
+            <span><%= customers[i].table %></span>
+          </li>
+          <% } %>
+        <% } %>
+      </ul>
+    </section>
+    <footer></footer>
+    <script src="main.js"></script>
+
+</body>
+
+</html>

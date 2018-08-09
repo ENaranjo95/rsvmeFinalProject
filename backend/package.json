@@ -1,0 +1,29 @@
+{
+  "name": "node-authentication",
+  "main": "server.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "axios-jsonp-pro": "^1.1.4",
+    "bcrypt-nodejs": "latest",
+    "body-parser": "^1.15.2",
+    "connect-flash": "~0.1.1",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.4",
+    "ejs": "~2.5.2",
+    "express": "^4.14.1",
+    "express-session": "~1.14.1",
+    "method-override": "~2.3.6",
+    "moment": "^2.22.2",
+    "mongoose": "^4.13.14",
+    "morgan": "~1.7.0",
+    "ngrok": "^3.0.1",
+    "nodemon": "^1.18.3",
+    "passport": "~0.3.2",
+    "passport-facebook": "~2.1.1",
+    "passport-google-oauth": "~1.0.0",
+    "passport-local": "~1.0.0",
+    "passport-twitter": "~1.0.4",
+    "react-router-dom": "^4.3.1",
+    "twilio": "^3.19.0"
+  }
+}
