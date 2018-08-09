@@ -4,7 +4,7 @@ const smsClient = require('./services')
 function sendText(req, res){
   // Twilio Response messages
   smsClient.messages.create({
-       body: `Your table ${req.body.table} is reserved for this time ${req.body.time}!`,
+       body: `Your table ${req.body.table} is reserved for this time ${req.body.time.format('hh:mm a')}!`,
        from: '+16179103731',
        to: `+1${req.body.phone}`
      })

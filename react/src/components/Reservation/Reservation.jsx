@@ -53,9 +53,6 @@ class ReservationTable extends Component{
     let target = event.target
     let value = event.target.value
     let name = target.name
-    console.log(target)
-    console.log(name)
-    console.log(value)
 
     this.setState({
       [name]: value
@@ -92,7 +89,6 @@ class ReservationTable extends Component{
 
   handleInputChange(event){
     this.setState({guests: event.target.value})
-    console.log(this.state.reserved)
   }
 
   render(){
@@ -149,12 +145,12 @@ class ReservationTable extends Component{
                 <option value="8">8</option>
               </select>
 
-              <Time className="selector" id="time" name="time" value={this.state.time} onChange={this.handleChange} reserved={this.state.reserved} table={this.state.table} />
-
               <Option className="selector" id="table" name="table" value={this.state.table} onChange={this.handleChange} guests={this.state.guests} />
 
+              <Time className="selector" id="time" name="time" value={this.state.time} onChange={this.handleChange} reserved={this.state.reserved} table={this.state.table} />
+
               <input id="btn" type="submit" value="Submit" onChange={this.handleSubmit} />
-              
+
             </form>
           </section>
         </div>

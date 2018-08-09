@@ -25,11 +25,25 @@ class Time extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log(nextProps)
-    let reservedArr = nextProps.reserved.map( doc => Number( doc.time ) );
-    console.log(reservedArr)
+    let reserved = [];
+
+    if ( nextProps.table ) {
+       reserved = nextProps.reserved.filter( doc => {
+         console.log(doc)
+         console.log(nextProps.table)
+         return doc.table === nextProps.table;
+       }) ;
+    }
+
+    this.filterTime(reserved)
+  }
+
+  filterTime(reserved){
+    let reservedArr = reserved.map( doc => Number( doc.time ) );
+    console.log(reserved)
     let available = this.state.timeSlots.filter( slot => {
       let timeStamp = slot.valueOf();
+      console.log(available)
       return !reservedArr.includes( timeStamp );
     });
     this.setState({ timeSlots: available })
