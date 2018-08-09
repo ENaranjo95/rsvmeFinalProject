@@ -2,58 +2,12 @@ import React, { Component } from 'react';
 import moment from 'moment';
 
 class Time extends Component {
-  constructor(props){
-    super(props);
-
-    this.state = {
-      timeSlots: []
-    }
-  }
-
-  componentDidMount(){
-    let counter =   moment().startOf("day").hour(11)
-    let end =   moment().startOf("day").hour(22)
-
-    let timeSlots = []
-    while( counter.isSameOrBefore(end)){
-      timeSlots.push( counter.clone() )
-      counter.add( 1, 'hour')
-    }
-    this.setState({
-      timeSlots: timeSlots
-    })
-  }
-
-  componentWillReceiveProps(nextProps){
-    let reserved = [];
-
-    if ( nextProps.table ) {
-       reserved = nextProps.reserved.filter( doc => {
-         console.log(doc)
-         console.log(nextProps.table)
-         return doc.table === nextProps.table;
-       }) ;
-    }
-
-    this.filterTime(reserved)
-  }
-
-  filterTime(reserved){
-    let reservedArr = reserved.map( doc => Number( doc.time ) );
-    console.log(reserved)
-    let available = this.state.timeSlots.filter( slot => {
-      let timeStamp = slot.valueOf();
-      console.log(available)
-      return !reservedArr.includes( timeStamp );
-    });
-    this.setState({ timeSlots: available })
-  }
-
 
   render(){
     return (
       <select name={this.props.name} onChange={this.props.onChange} className={this.props.className}>
-         { this.state.timeSlots.map((hour) => {
+        <option selected="true" disabled="disabled">Choose Time</option>    
+         { this.props.available.map((hour) => {
              let formatted = hour.format('hh:mm a')
              let timeStamp = hour.valueOf()
              return <option value={timeStamp} key={timeStamp}>

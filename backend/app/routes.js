@@ -1,10 +1,12 @@
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const smsClient = require('./services')
+const moment = require('moment')
 
 function sendText(req, res){
+  let newTime = moment( req.body.time ).format('hh:mm a')
   // Twilio Response messages
   smsClient.messages.create({
-       body: `Your table ${req.body.table} is reserved for this time ${req.body.time.format('hh:mm a')}!`,
+       body: `Your table ${req.body.table} is reserved for this time ${newTime}!`,
        from: '+16179103731',
        to: `+1${req.body.phone}`
      })

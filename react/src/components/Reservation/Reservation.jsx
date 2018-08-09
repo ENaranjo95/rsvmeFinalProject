@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import moment from 'moment';
 import TablesA from '../Tables/TablesA.jsx';
 import TablesB from '../Tables/TablesB.jsx';
 import TablesC from '../Tables/TablesC.jsx';
@@ -17,10 +18,13 @@ class ReservationTable extends Component{
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.onClick = this.onClick.bind(this)
+    this.handleTimeChange = this.handleTimeChange.bind(this)
+    this.timeSlots = this.timeSlots.bind(this)
 
     this.state = {
       // tables is an array of objects, give an did, number of ids
+      timeSlots: [],
+      available: [],
       reserved: [],
       guests: '',
       first: '',
@@ -33,6 +37,7 @@ class ReservationTable extends Component{
     }
   }
   componentDidMount(){
+    this.timeSlots()
     axios.get('http://localhost:8080/api/reserved')
     .then( response => {
       let data = response.data;
@@ -46,7 +51,6 @@ class ReservationTable extends Component{
       console.log(error);
     });
 
-    console.log(this.state.reserved)
   }
 
   handleChange(event){
@@ -56,6 +60,30 @@ class ReservationTable extends Component{
 
     this.setState({
       [name]: value
+    }, this.handleTimeChange )
+  }
+
+  handleTimeChange(){
+    let reserved = [];
+
+    if ( this.state.table ) {
+       reserved = this.state.reserved.filter( doc => {
+         console.log(doc)
+         return doc.table === this.state.table;
+       }) ;
+    }
+    this.filterTime(reserved)
+  }
+
+  filterTime(reserved){
+    let reservedArr = reserved.map( doc => Number( doc.time ) );
+
+    let available = this.state.timeSlots.filter( slot => {
+      let timeStamp = slot.valueOf();
+      return !reservedArr.includes( timeStamp );
+    });
+    this.setState({
+      available: available
     })
   }
 
@@ -79,12 +107,18 @@ class ReservationTable extends Component{
 
   }
 
-  onClick(event){
-    console.log(event)
-    console.log('listening')
+  timeSlots(){
+    let counter =   moment().startOf("day").hour(11)
+    let end =   moment().startOf("day").hour(22)
+
+    let timeSlots = []
+    while( counter.isSameOrBefore(end)){
+      timeSlots.push( counter.clone() )
+      counter.add( 1, 'hour')
+    }
     this.setState({
-      test: 'red'
-    });
+      timeSlots: timeSlots
+    })
   }
 
   handleInputChange(event){
@@ -147,7 +181,7 @@ class ReservationTable extends Component{
 
               <Option className="selector" id="table" name="table" value={this.state.table} onChange={this.handleChange} guests={this.state.guests} />
 
-              <Time className="selector" id="time" name="time" value={this.state.time} onChange={this.handleChange} reserved={this.state.reserved} table={this.state.table} />
+              <Time className="selector" id="time" name="time" value={this.state.time} onChange={this.handleChange} available={this.state.available} />
 
               <input id="btn" type="submit" value="Submit" onChange={this.handleSubmit} />
 
