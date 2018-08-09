@@ -15,7 +15,6 @@ class Navbar extends Component {
 
     logout(event) {
         event.preventDefault()
-        console.log('logging out')
         axios.post('http://localhost:7000/user/logout').then(response => {
           if (response.status === 200) {
             this.setState({
@@ -27,7 +26,6 @@ class Navbar extends Component {
             })
           }
         }).catch(error => {
-            console.log('Logout error')
         })
       }
 

@@ -24,7 +24,6 @@ class Signup extends Component {
 		})
 	}
 	handleSubmit(event) {
-		console.log(`sign-up handleSubmit, username: ${this.state.username}` )
 		event.preventDefault()
 
 		//request to server to add a new username/password
@@ -32,25 +31,19 @@ class Signup extends Component {
 			username: this.state.username,
 			password: this.state.password
 		})
-			.then(response => {
-				console.log(response)
-				if (!response.data.errmsg) {
-					console.log('successful signup')
-					this.props.updateUser({
-							loggedIn: true,
-							username: response.data.username
-					})
-					//redirect to login page
-					this.setState({
-						redirectTo: '/reserve'
-					})
-				} else {
-					console.log('username already taken')
-				}
-			}).catch(error => {
-				console.log('signup error: ' + error)
-
-			})
+		.then(response => {
+			if (!response.data.errmsg) {
+				this.props.updateUser({
+						loggedIn: true,
+						username: response.data.username
+				})
+				//redirect to login page
+				this.setState({
+					redirectTo: '/reserve'
+				})
+			} else {
+			}
+		}).catch(error => {})
 	}
 
 

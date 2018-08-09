@@ -25,29 +25,24 @@ class LoginForm extends Component {
     }
 
     handleSubmit(event) {
-        event.preventDefault()
-        console.log('handleSubmit')
-
-        axios.post('http://localhost:7000/user/login', {
-                username: this.state.username,
-                password: this.state.password
+      event.preventDefault()
+      axios.post('http://localhost:7000/user/login', {
+        username: this.state.username,
+        password: this.state.password
+      })
+      .then(response => {
+          if (response.status === 200) {
+            // update App.js state
+            this.props.updateUser({
+                loggedIn: true,
+                username: response.data.username
             })
-            .then(response => {
-                console.log('login response: ')
-                if (response.status === 200) {
-                    // update App.js state
-                    this.props.updateUser({
-                        loggedIn: true,
-                        username: response.data.username
-                    })
-                    // update the state to redirect to home
-                    this.setState({
-                        redirectTo: '/reserve'
-                    })
-                }
-            }).catch(error => {
-                console.log('login error: ' + error )
+            // update the state to redirect to home
+            this.setState({
+              redirectTo: '/reserve'
             })
+          }
+      }).catch(error => { })
     }
 
     render() {

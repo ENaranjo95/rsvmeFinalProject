@@ -42,13 +42,9 @@ class ReservationTable extends Component{
     .then( response => {
       let data = response.data;
       let reserved = data.filter(item => item.checkIn === false );
-
       this.setState({ reserved: reserved });
-
-      console.log(response.data);
     })
     .catch(function (error) {
-      console.log(error);
     });
 
   }
@@ -68,7 +64,6 @@ class ReservationTable extends Component{
 
     if ( this.state.table ) {
        reserved = this.state.reserved.filter( doc => {
-         console.log(doc)
          return doc.table === this.state.table;
        }) ;
     }
@@ -99,10 +94,8 @@ class ReservationTable extends Component{
       table: this.state.table
     })
     .then(function (response) {
-      console.log(response);
     })
     .catch(function (error) {
-      console.log(error);
     });
 
   }
