@@ -3,19 +3,16 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 class LoginForm extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
-            username: '',
+            email: '',
             password: '',
             redirectTo: null
         }
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
-
     }
 
-    handleChange(event) {
+    handleChange = (event) => {
       let target = event.target
       let value = event.target.value
       let name = target.name
@@ -24,18 +21,22 @@ class LoginForm extends Component {
         })
     }
 
-    handleSubmit(event) {
+    handleSubmit = (event) => {
       event.preventDefault()
       axios.post('http://localhost:7000/user/login', {
-        username: this.state.username,
+        email: this.state.email,
         password: this.state.password
       })
       .then(response => {
+        let {first, last, email, phone} = response.data
           if (response.status === 200) {
             // update App.js state
             this.props.updateUser({
                 loggedIn: true,
-                username: response.data.username
+                first: first,
+                last: last,
+                email: email,
+                phone: phone
             })
             // update the state to redirect to home
             this.setState({
@@ -55,10 +56,10 @@ class LoginForm extends Component {
                     <form className="form-horizontal">
                         <div className="form-group">
                             <div className="col-1 col-ml-auto">
-                                <label className="form-label" htmlFor="username">Username</label>
+                                <label className="form-label" htmlFor="email">Email: </label>
                             </div>
                             <div className="col-3 col-mr-auto">
-                                <input className="form-input" type="text" id="username" name="username" placeholder="Username" value={this.state.username} onChange={this.handleChange} />
+                                <input className="form-input" placeholder="email" type="email" name="email" value={this.state.email} onChange={this.handleChange} />
                             </div>
                         </div>
                         <div className="form-group">

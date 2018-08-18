@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { Route } from 'react-router-dom';
 // components
 import Signup from './components/signup.jsx';
@@ -9,39 +9,52 @@ import Home from './components/home.jsx';
 import Reservation from './components/Reservation/Reservation.jsx';
 
 class App extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       loggedIn: false,
-      username: null
+      first: null,
+      last: null,
+      email: null,
+      phone: null
     }
-
-    this.getUser = this.getUser.bind(this)
-    this.componentDidMount = this.componentDidMount.bind(this)
-    this.updateUser = this.updateUser.bind(this)
   }
 
-  componentDidMount() {
-    this.getUser()
-  }
+  // componentDidMount = () => {
+  //   this.getUser()
+  // }
 
-  updateUser (userObject) {
+  updateUser = (userObject) => {
     this.setState(userObject)
   }
 
-  getUser() {
-    axios.get('http://localhost:7000/user/').then(response => {
-      if (response.data.user) {
-        this.setState({
-          loggedIn: true,
-          username: response.data.user.username
-        })
-      } else {
-        this.setState({
-          loggedIn: false,
-          username: null
-        })
-      }
+  // getUser = () => {
+  //   axios.get('http://localhost:7000/user/')
+  //   .then(response => {
+  //     if (response.data.user) {
+  //       this.setState({
+  //         loggedIn: true,
+  //         email: response.data.user.email
+  //       })
+  //     } else {
+  //       this.setState({
+  //         loggedIn: false,
+  //         first: null,
+  //         last: null,
+  //         email: null,
+  //         phone: null
+  //       })
+  //     }
+  //   })
+  // }
+
+  componentWillUnmount = () => {
+    this.setState({
+      loggedIn: false,
+      first: null,
+      last: null,
+      email: null,
+      phone: null
     })
   }
 
@@ -52,7 +65,7 @@ class App extends Component {
         <Route exact path="/" component={Home} />
         <Route path="/login" render={() => <Login updateUser={this.updateUser} />} />
         <Route path="/signup" render={() => <Signup updateUser={this.updateUser} />} />
-        <Route path="/reserve" render={() => <Reservation loggedIn={this.state.loggedIn} />} />
+        <Route path="/reserve" render={() => <Reservation loggedIn={this.state.loggedIn}  data={this.state} />} />
       </div>
     );
   }

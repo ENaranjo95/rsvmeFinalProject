@@ -7,90 +7,91 @@ class Options extends Component{
     const select = [
       {
         size: null,
-        select: 'Pick a table'
+        value: null,
+        key: 'Pick a table'
       },
       {
         size: 6,
         value: 'a1',
-        select: 'A1'
+        key: 'A1'
       },
       {
         size: 6,
         value: 'a2',
-        select: 'A2'
+        key: 'A2'
       },
       {
         size: 6,
         value: 'a3',
-        select: 'A3'
+        key: 'A3'
       },
       {
         size: 6,
         value: 'a4',
-        select: 'A4'
+        key: 'A4'
       },
       {
         size: 6,
         value: 'a5',
-        select: 'A5'
+        key: 'A5'
       },
       {
         size: 4,
         value: 'b1',
-        select: 'B1'
+        key: 'B1'
       },
       {
         size: 4,
         value: 'b2',
-        select: 'B2'
+        key: 'B2'
       },
       {
         size: 4,
         value: 'b3',
-        select: 'B3'
+        key: 'B3'
       },
       {
         size: 4,
         value: 'b4',
-        select: 'B4'
+        key: 'B4'
       },
       {
         size: 8,
         value: 'c1',
-        select: 'C1'
+        key: 'C1'
       },
       {
         size: 8,
         value: 'c2',
-        select: 'C2'
+        key: 'C2'
       },
       {
         size: 8,
         value: 'c3',
-        select: 'C3'
+        key: 'C3'
       },
       {
         size: 2,
         value: 'd1',
-        select: 'D1'
+        key: 'D1'
       },
       {
         size: 2,
         value: 'd2',
-        select: 'D2'
+        key: 'D2'
       },
       {
         size: 2,
         value: 'd3',
-        select: 'D3'
+        key: 'D3'
       }
     ]
 
     return (
-      <select className={this.props.className} name={this.props.name} onChange={this.props.onChange}>
+      <select className={this.props.className} name={this.props.name} onChange={this.props.onChange} value={this.props.value}>
         { select.map((opt) =>{
-            return <option value={opt.value} key={opt.select} className={`${opt.size === parseInt(this.props.guests, 10) ? '' : 'hide'}`} >
-              {opt.select}
+            return <option value={opt.value} key={opt.key} className={`${opt.size === parseInt(this.props.guests, 10) ? '' : 'hide'}`} >
+              {opt.key}
             </option>
           })
         }

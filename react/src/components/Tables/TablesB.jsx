@@ -31,7 +31,7 @@ class TablesB extends Component {
     return (
       <div>
         {tables.map((table) => (
-          <div key={table.id} onClick={this.props.click} className={`${table.name} ${parseInt(this.props.guests, 10) === this.props.size  ? 'active' : ''}`}>
+          <div key={table.id} onClick={this.props.onClick} className={`${table.name} ${parseInt(this.props.guests, 10) === table.size  ? 'active' : ''}`}>
             {table.id}
           </div>
         ))}

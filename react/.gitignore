@@ -1,3 +1,5 @@
+# Database
+/server/database/index.js
 
 # dependencies
 /node_modules
