@@ -31,3 +31,8 @@ The React Framework is asychronous so have to be aware of race conditions, the b
 1. cd /react `npm run dev` (Starts React and Passport)
 2. cd /backend `npm start`
 3. Navigate to `localhost:3000 to`
+
+
+## Contribution
+
+I would love some feedback on how to improve this project. If you have any questions or comments please reach out through my contact information on github. I look forward to hearing great ideas from others.
