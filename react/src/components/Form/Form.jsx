@@ -1,51 +1,50 @@
 import React, { Component } from 'react';
 import './Form.css';
-import Option from '../Options/Option.jsx';
-import Time from '../Options/Time.jsx';
 
-class Form extends Component{
-  state = {
-    first: '',
-    last: '',
-    email: '',
-    phone: '',
-    time: '',
-    table: ''
+class Form extends Component {
+  constructor(props){
+    super(props);
+    let { loggedIn, first, last, email, phone } = this.props.userInfo
+    this.state = {
+      loggedIn: loggedIn,
+      first: first,
+      last: last,
+      email: email,
+      phone: phone,
+      time: [],
+      table: this.props.table,
+      guests: this.props.guests,
+      show: this.props.show
+    }
   }
 
 
+
   render(){
-    return(
-      <section className="reserve">
-        <h2>Reserve Table</h2>
-        <form>
-          <legend>Customer Info</legend>
+    return (
+      <div>
+        <section className={`${this.props.show === true ? 'displayForm': 'reserve'} main`}>
+          <h2>Reserve Table</h2>
+          <form onSubmit={this.handleSubmit}>
+            <legend>Customer Info</legend>
 
-          <input id="first" placeholder="First Name" name="first" value={this.state.first} onChange={this.handleChange} />
+            <input id="first" placeholder="First Name" name="first" defaultValue={this.state.first} />
 
-          <input id="last" placeholder="Last Name" name="last" value={this.state.last} onChange={this.handleChange} />
+            <input id="last" placeholder="Last Name" name="last" defaultValue={this.state.last} />
 
-          <input id="mail" type="email" placeholder="Email" name="email" value={this.state.email} onChange={this.handleChange} />
+            <input id="mail" type="email" placeholder="Email" name="email" defaultValue={this.state.email} />
 
-          <input id="number" type="tel" placeholder="(888)-888-8888" name="phone" value={this.state.phone} onChange={this.handleChange} />
+            <input id="number" type="tel" placeholder="(888)-888-8888" name="phone" defaultValue={this.state.phone} />
 
-          <select className="selector" value={this.state.guests} onChange={this.handleInputChange} name="ppl">
-            <option value="null"># of Guests</option>
-            <option value="2">2</option>
-            <option value="4">4 or under</option>
-            <option value="6">6 or under</option>
-            <option value="8">8 or under</option>
-          </select>
+            <input className="selector" name="guests"  defaultValue={this.state.guests} />
 
-          <Option className="selector" id="table" name="table" value={this.state.table} onChange={this.handleChange} guests={this.state.guests} />
+            <input className="selector" id="table" name="table" defaultValue={this.state.table} />
 
-          <Time className="selector" id="time" name="time" value={this.state.time} onChange={this.handleChange} available={this.state.available} />
+            <input id="btn" type="submit" defaultValue="Submit" onSubmit={this.handleSubmit} />
 
-          <input id="btn" type="submit" value="Submit" onChange={this.handleSubmit} />
-
-        </form>
-      </section>
-
+          </form>
+        </section>
+      </div>
     )
   }
 }

@@ -6,107 +6,100 @@
   background-color: red;
 }
 
-
-
+/* On Hover Trigger for Tables */
+.table:hover{
+  background-color: lightgreen;
+}
+.extraTables:hover{
+  background-color: lightgreen;
+}
+.highTable:hover{
+  background-color: lightgreen;
+}
+.roundTable:hover{
+  background-color: lightgreen;
+}
 /* CSS styles for the reservation table layout */
 .booth{
   height: 150px;
   width: 100%;
-  text-align: center;
-}
-.seat{
-  height: 50px;
-  width: 100%;
-  border: 1px solid black;
-}
-.seat ~ div{
-  height: 100px;
-  width: 100%;
 }
 #displayTable .table{
-  height: 70px;
-  width: 140px;
-  margin: 10px 25px 0 25px;
-  border: 1px solid black;
-  float: left;
-}
-.high{
-  height: 500px;
-  width: 25%;
-  float: left;
-}
-.high > section{
-  height: 125px;
-  width: 100%;
-}
-.highTable{
-  height: 100px;
-  width: 100px;
-  border-radius: 100px;
-  margin: 12.5px auto;
+  height: 75px;
+  width: 150px;
+  padding-top: 25px;
+  margin: 20px 35px 0 35px;
   border: 1px solid black;
   text-align: center;
+  float: left;
 }
+
+.extra{
+  height: 430px;
+  width: 25%;
+  border-right: 1px solid black;
+  margin-bottom: 20px;
+  float: left;
+}
+.extraTables{
+  height: 80px;
+  width: 80px;
+  padding-top: 30px;
+  border: 1px solid black;
+  margin: 30px 40px 30px 40px;
+  float: left;
+}
+
+.high{
+  width: 20%;
+  height: 430px;
+  text-align: center;
+  float: left;
+}
+.highTable{
+  width: 120px;
+  height: 120px;
+  padding-top: 40px;
+  border-radius: 100px;
+  border: 1px solid black;
+  margin: 20px 0 10px 50px;
+}
+
 .round{
-  height: 200px;
-  width: 75%;
+  height: 250px;
+  width: 55%;
   float: left;
 }
 .roundTable{
-  height: 130px;
-  width: 130px;
-  border-radius: 130px;
-  margin: 35px 50px 0 50px;
-  border: 1px solid black;
-  float: left;
-}
-.walk{
-  height: 300px;
-  width: 45%;
-  float: left;
-}
-.extra{
-  height: 300px;
-  width: 200px;
-  float: left;
-}
-.extra > section{
-  height: 100px;
-}
-.extraTable{
-  height: 80px;
-  width: 80px;
-  margin: 10px auto;
-  border: 1px solid black;
-  text-align: center;
-}
-.front{
-  height: 70px;
-  width: 70px;
-  margin-top: 210px;
-  margin-right: 10px;
-  border: 1px solid black;
-  float: right;
-}
-#displayTable .bar{
-  background-color: white;
-  height: 300px;
-  width: 30%;
-  float: left;
-}
-.space{
-  height: 200px;
+  height: 160px;
   width: 160px;
+  padding-top: 65px;
+  border-radius: 200px;
+  border: 1px solid black;
+  margin: 30px 30px 30px 30px;
   float: left;
 }
-.column{
-  height: 200px;
-  width: 130px;
-  padding-top: 40px;
+
+.space{
+  height: 180px;
+  width: 55%;
   float: left;
 }
-.column > div{
-  height: 300px;
-  width: 80px;
+#displayTable .column{
+  height: 180px;
+  width: 50%;
+  padding-top: 80px;
+  float: left;
+}
+.column .checkIn{
+  height: 60px;
+  width: 60px;
+  border: 1px solid black;
+  margin-top: 39px;
+  margin-left: 250px;
+}
+.column .bar{
+  height: 60px;
+  width: 100%;
   border: 1px solid black;
 }

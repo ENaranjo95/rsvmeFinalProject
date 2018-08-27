@@ -3,36 +3,41 @@ import './Tables.css';
 
 class TablesD extends Component {
 
+  onClick = (table) => {
+    this.props.form(table)
+  }
+
   render(){
 
     const tables = [
       {
-        size: 2,
-        name: 'extraTable',
-        id: 'd1'
+        size: 8,
+        name: 'roundTable',
+        id: 'D1'
       },
       {
-        size: 2,
-        name: 'extraTable',
-        id: 'd2'
+        size: 8,
+        name: 'roundTable',
+        id: 'D2'
       },
       {
-        size: 2,
-        name: 'extraTable',
-        id: 'd3'
+        size: 8,
+        name: 'roundTable',
+        id: 'D3'
       }
     ]
 
     return (
-      <div>
+      <section className="round">
         {tables.map((table) => (
-          <div key={table.id} onClick={this.props.onClick} className={`${table.name} ${parseInt(this.props.guests, 10) === table.size  ? 'active' : ''}`}>
+          <div onClick={ () => { this.onClick(table) } }
+            key={table.id} className={table.name}>
             {table.id}
           </div>
         ))}
-      </div>
+      </section>
     )
   }
 }
 
-export default TablesD
+export default TablesD;

@@ -3,36 +3,41 @@ import './Tables.css';
 
 class TablesC extends Component {
 
+  onClick = (table) => {
+    this.props.form(table)
+  }
+
   render(){
 
     const tables = [
       {
-        size: 8,
-        name: 'roundTable',
-        id: 'c1'
+        size: 4,
+        name: 'highTable',
+        id: 'C1'
       },
       {
-        size: 8,
-        name: 'roundTable',
-        id: 'c2'
+        size: 4,
+        name: 'highTable',
+        id: 'C2'
       },
       {
-        size: 8,
-        name: 'roundTable',
-        id: 'c3'
+        size: 4,
+        name: 'highTable',
+        id: 'C3'
       },
     ]
 
     return (
-      <div>
+      <section className="high">
         {tables.map((table) => (
-          <div key={table.id} onClick={this.props.onClick} className={`${table.name} ${parseInt(this.props.guests, 10) === table.size  ? 'active' : ''}`}>
+          <div onClick={ () => { this.onClick(table) } }
+            key={table.id} className={table.name}>
             {table.id}
           </div>
         ))}
-      </div>
+      </section>
     )
   }
 }
 
-export default TablesC
+export default TablesC;

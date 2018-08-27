@@ -4,36 +4,53 @@ import axios from 'axios';
 import moment from 'moment';
 
 // Components
-import TablesA from '../Tables/TablesA.jsx';
-import TablesB from '../Tables/TablesB.jsx';
-import TablesC from '../Tables/TablesC.jsx';
-import TablesD from '../Tables/TablesD.jsx';
-import Time from '../Options/Time';
-import Option from '../Options/Option';
+import TablesA from '../Tables/TablesA';
+import TablesB from '../Tables/TablesB';
+import TablesC from '../Tables/TablesC';
+import TablesD from '../Tables/TablesD';
+import Other from '../Tables/Other'
+import Form from '../Form/Form';
 import './Reservation.css';
 
 
-class ReservationTable extends Component{
+class Reservation extends Component{
   constructor(props){
     super(props);
-
     this.state = {
-      // tables is an array of objects, give an did, number of ids
+      loggedIn: this.props.loggedIn,
       timeSlots: [],
       available: [],
       reserved: [],
-      first: this.props.data.first,
-      last: this.props.data.last,
-      email: this.props.data.email,
-      phone: this.props.data.phone,
       time: null,
-      table: '',
-      guests: '',
-      redirectTo: '/'
+      table: null,
+      guests: null,
+      redirectTo: '/',
+      show: false
     }
   }
   componentDidMount = () => {
-    this.timeSlots()
+    window.addEventListener('keyup', this.handleKeyUp, false);
+    document.addEventListener('click', this.handleOutsideClick, false);
+    this.timeSlots();
+    this.reserved();
+  }
+
+  componentWillUnmount = () => {
+    window.removeEventListener('keyup', this.handleKeyUp, false);
+    document.removeEventListener('click', this.handleOutsideClick, false);
+  }
+
+  handleKeyUp = (event) => {
+    const { onCloseRequest } = this.props;
+    const keys = {
+      27: () => {
+      event.preventDefault();
+      onCloseRequest();
+      window.removeEventListener('keyup', this.handleKeyUp, false);
+    },
+    };
+  }
+  reserved = () =>{
     axios.get('http://localhost:8080/api/reserved')
     .then( response => {
       let rsvp = response.data.filter(item => item.checkIn === false );
@@ -41,21 +58,13 @@ class ReservationTable extends Component{
     })
     .catch(function (err) {
     });
+    console.log(this.state.reserved)
+    this.handleTimeChange()
   }
 
-  // filterTime = (reserved) => {
-  //   let reservedArr = reserved.map( doc => console.log(doc.time)  );
-  //
-  //   let available = this.state.timeSlots.filter( slot => {
-  //     let time = slot.format('hh:mm a')
-  //     return !reservedArr.includes( time );
-  //   });
-  //   this.setState({
-  //     available: available
-  //   })
-  // }
-
   handleTimeChange = () => {
+    console.log('running')
+    console.log(this.state)
     let reservedState = this.state.reserved
     let table = this.state.table
     console.log(table)
@@ -65,18 +74,16 @@ class ReservationTable extends Component{
        console.log(table)
        return doc.table === table;
      });
-     console.log(reservedTable)
     //this.filterTime(reservedTable)
   }
 
-  handleChange = (event) => {
-    let target = event.target
-    let value = event.target.value
+  handleChange = ({target}) => {
+    let value = target.value
     let name = target.name
 
     this.setState({
       [name]: value
-    }, this.handleTimeChange() )
+    })
   }
 
   handleSubmit = (event) => {
@@ -91,7 +98,8 @@ class ReservationTable extends Component{
       time: this.state.time,
       table: this.state.table
     })
-    .then(function (response) {
+    .then( (response) => {
+      // response === 200 ? this.formSubmitted() : console.log(response)
       console.log(response)
     })
     .catch(function (error) {
@@ -105,6 +113,7 @@ class ReservationTable extends Component{
     let end =  moment().startOf("day").hour(22)
 
     let timeSlots = []
+
     while( counter.isSameOrBefore(end)){
       timeSlots.push( counter.clone() )
       counter.add( 1, 'hour')
@@ -114,11 +123,38 @@ class ReservationTable extends Component{
     })
   }
 
-  handleInputChange = ({target: {value}}) => {
+  handleGuestChange = ({target: {value}}) => {
     this.setState({
       guests: value
     })
   }
+
+  filterTime = (reserved) => {
+    let reservedArr = reserved.map( doc => console.log(doc.time)  );
+
+    let available = this.state.timeSlots.filter( slot => {
+      let time = slot.format('hh:mm a')
+      return !reservedArr.includes( time );
+    });
+    this.setState({
+      available: available
+    })
+  }
+
+  showForm = (table) =>{
+    this.setState({
+      table: table.id,
+      guests: table.size
+    })
+    this.modal()
+  }
+
+  modal = () => {
+    this.setState({
+      show: true
+    })
+  }
+
 
   render(){
     if(this.props.loggedIn === false){
@@ -126,61 +162,24 @@ class ReservationTable extends Component{
     } else {
       return (
         <div>
-          <section id="displayTable">
+          <section id="displayTable" className="clearfix">
 
-            <TablesA onClick={this.onClick} guests={this.state.guests} reserved={this.state.reserved} />
+            <TablesA form={this.showForm} guests={this.state.guests} reserved={this.state.reserved} />
 
-            <section className="high">
-              <TablesB onClick={this.onClick} guests={this.state.guests} reserved={this.state.reserved} />
-            </section>
+            <TablesB form={this.showForm} guests={this.state.guests} reserved={this.state.reserved} />
 
-            <section className="round">
-              <TablesC onClick={this.onClick} guests={this.state.guests} reserved={this.state.reserved} />
-            </section>
-            <section className="walk">
-              <section className="extra">
-              <TablesD onClick={this.onClick} guests={this.state.guests} reserved={this.state.reserved} />
-              </section>
-              <div className="front">Check In</div>
-            </section>
-            <section className="bar">
-              <section className="space"></section>
-              <section className="column"><div>Bar</div></section>
-            </section>
+            <TablesC form={this.showForm} guests={this.state.guests} reserved={this.state.reserved} />
+
+            <TablesD form={this.showForm} guests={this.state.guests} reserved={this.state.reserved} />
+
+            <Other />
+
           </section>
-          <section className="reserve">
-            <h2>Reserve Table</h2>
-            <form onSubmit={this.handleSubmit}>
-              <legend>Customer Info</legend>
-
-              <input id="first" placeholder="First Name" name="first" value={this.state.first} onChange={this.handleChange} />
-
-              <input id="last" placeholder="Last Name" name="last" value={this.state.last} onChange={this.handleChange} />
-
-              <input id="mail" type="email" placeholder="Email" name="email" value={this.state.email} onChange={this.handleChange} />
-
-              <input id="number" type="tel" placeholder="(888)-888-8888" name="phone" value={this.state.phone} onChange={this.handleChange} />
-
-              <select className="selector" value={this.state.guests} onChange={this.handleInputChange} name="ppl">
-                <option value="null"># of Guests</option>
-                <option value="2">2</option>
-                <option value="4">4 or under</option>
-                <option value="6">6 or under</option>
-                <option value="8">8 or under</option>
-              </select>
-
-              <Option className="selector" id="table" name="table" value={this.state.table} onChange={this.handleChange} guests={this.state.guests} />
-
-              <Time className="selector" id="time" name="time" value={this.state.time} onChange={this.handleChange} available={this.state.available} timeSlots={this.state.timeSlots} />
-
-              <input id="btn" type="submit" value="Submit" onSubmit={this.handleSubmit} />
-
-            </form>
-          </section>
+            <Form show={this.state.show} time={this.state.timeSlots} userInfo={this.props.userInfo} table={this.state.table} guests={this.state.guests}/>
         </div>
       );
     }
   }
 }
 
-export default ReservationTable;
+export default Reservation;

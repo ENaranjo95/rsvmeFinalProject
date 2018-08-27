@@ -3,8 +3,8 @@ import './Tables.css';
 
 class TablesA extends Component {
 
-  state = {
-    reserved: this.props.reserved
+  onClick = (table) => {
+    this.props.form(table)
   }
 
   render(){
@@ -13,38 +13,41 @@ class TablesA extends Component {
       {
         size: 6,
         name: 'table',
-        id: 'a1'
+        id: 'A1'
       },
       {
         size: 6,
         name: 'table',
-        id: 'a2'
+        id: 'A2'
       },
       {
         size: 6,
         name: 'table',
-        id: 'a3'
+        id: 'A3'
       },
       {
         size: 6,
         name: 'table',
-        id: 'a4'
+        id: 'A4'
       },
       {
         size: 6,
         name: 'table',
-        id: 'a5'
+        id: 'A5'
+      },
+      {
+        size: 6,
+        name: 'table',
+        id: 'A6'
       }
     ]
 
     return (
       <div>
         <section className="booth">
-          <section className="seat"></section>
           {tables.map((table) => (
-            <div onClick={ ()=>{
-                this.props.onClick(table.id)
-              }} key={table.id} className={`${table.name} ${parseInt(this.props.guests, 10) === table.size  ? 'active' : ''}`}>
+            <div onClick={ () => { this.onClick(table) } }
+              key={table.id} className={table.name}>
               {table.id}
             </div>
           ))}
@@ -54,4 +57,4 @@ class TablesA extends Component {
   }
 }
 
-export default TablesA
+export default TablesA;
