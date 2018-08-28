@@ -8,8 +8,9 @@ import TablesA from '../Tables/TablesA';
 import TablesB from '../Tables/TablesB';
 import TablesC from '../Tables/TablesC';
 import TablesD from '../Tables/TablesD';
-import Other from '../Tables/Other'
+import Other from '../Tables/Other';
 import Form from '../Form/Form';
+// import FormSubmit from '../Form/FormSubmit';
 import './Reservation.css';
 
 
@@ -59,14 +60,13 @@ class Reservation extends Component{
   filterTime = (rsvpTable) => {
 
     let available = this.state.timeSlots.filter( slot => {
-      let time = slot.format('hh:mm a')
+    let time = slot.format('hh:mm a')
       return !rsvpTable.includes( time );
     });
     console.log(available)
     this.setState({
       available: available
-    })
-    this.modal()
+    }, this.modal())
   }
 
   openForm = (table) =>{
@@ -91,7 +91,6 @@ class Reservation extends Component{
     })
   }
 
-
   render(){
     if(this.props.loggedIn === false){
       return <Redirect to={{ pathname: this.state.redirectTo}} />
@@ -113,7 +112,7 @@ class Reservation extends Component{
           </section>
           {this.state.show &&
           <Form time={this.state.available} userInfo={this.props.userInfo}
-            table={this.state.table} guests={this.state.guests}/> }
+            table={this.state.table} guests={this.state.guests} onClick={this.closeForm}/> }
         </div>
       );
     }

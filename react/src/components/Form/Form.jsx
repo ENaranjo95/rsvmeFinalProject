@@ -7,6 +7,7 @@ import Time from '../Options/Time'
 
 class Form extends Component {
   constructor(props){
+    console.log('mounted')
     super(props);
     let { loggedIn, first, last, email, phone } = props.userInfo
     this.state = {
@@ -46,8 +47,7 @@ class Form extends Component {
   }
 
   handleSubmit = (event) => {
-    // const error = new Error('Form was not submitted')
-    event.preventDefault()
+    // event.preventDefault()
     axios.post('http://localhost:8080/api/reserve', {
       first: this.state.first,
       last: this.state.last,
@@ -59,13 +59,14 @@ class Form extends Component {
       other: this.state.other
     })
     .then( (response) => {
-      // response === 200 ? this.formSubmitted() : throw error
+      // if(response === 200){
+      //   this.props.formSubmitted()
+      // }
       console.log(response)
     })
-    .catch(function (error) {
-      console.log(error)
+    .catch( (err) => {
+      console.log(err)
     });
-
   }
 
 
@@ -76,6 +77,7 @@ class Form extends Component {
         <section className="displayForm main">
 
           <section className="rsvpForm">
+            <button onClick={()=>{this.props.onClick()} }>X</button>
             <h3>Please confirm your information</h3>
             <p>This reservation is set for {this.state.first} {this.state.last}</p>
             <section className="twin">
@@ -83,10 +85,11 @@ class Form extends Component {
               <p id="email">{this.state.email}</p>
             </section>
             <section className="twin">
-              <p>By providng your mobile number, you agree to receive text messages from RSVME. RSVME will only text you about your reservation.</p>
               <label htmlFor="phone">Mobile:</label>
               <p id="phone">{this.state.formatNum}</p>
+              <p>By providng your mobile number, you agree to receive text messages from RSVME. RSVME will only text you about your reservation.</p>
             </section>
+            <p>Your table is set for guest size of {this.state.guests} or under. Please be considerate of the fact that this table is for a party size of {this.state.guests} or {this.state.guests - 1}</p>
           </section>
 
           <form onSubmit={this.handleSubmit}>
