@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 class Time extends Component {
 
   render(){
+    const time = this.props.time
     const first = {
       value: 'false',
       name: 'Choose Time'
@@ -11,10 +12,10 @@ class Time extends Component {
     return (
       <select name={this.props.name} onChange={this.props.onChange} className={this.props.className}>
         <option value={first.value}> {first.name} </option>
-         { this.props.timeSlots.map((hour) => {
-             let formatted = hour.format('hh:mm a')
-             return <option value={formatted} key={formatted}>
-               {formatted}
+         { time.map((hour) => {
+           let format = hour.format('hh:mm a')
+             return <option value={format} key={format}>
+               {format}
              </option>
             })
           }

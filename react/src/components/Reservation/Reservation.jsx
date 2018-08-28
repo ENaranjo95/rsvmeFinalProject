@@ -25,7 +25,7 @@ class Reservation extends Component{
       table: null,
       guests: null,
       redirectTo: '/',
-      show: false
+      show: null
     }
   }
   componentDidMount = () => {
@@ -56,27 +56,27 @@ class Reservation extends Component{
     })
   }
 
-  filterTime = (reserved) => {
-    let reservedArr = reserved.map( doc => console.log(doc.time)  );
+  filterTime = (rsvpTable) => {
 
     let available = this.state.timeSlots.filter( slot => {
       let time = slot.format('hh:mm a')
-      return !reservedArr.includes( time );
+      return !rsvpTable.includes( time );
     });
+    console.log(available)
     this.setState({
       available: available
     })
+    this.modal()
   }
 
   openForm = (table) =>{
     let reserved = this.state.reserved
     let rsvpTable = reserved.filter( slot => reserved.table === table.id)
-    console.log(rsvpTable)
+    this.filterTime(rsvpTable)
     this.setState({
       table: table.id,
       guests: table.size
-    }, this.modal())
-    console.log(this.state)
+    })
   }
 
   modal = () => {
@@ -112,7 +112,7 @@ class Reservation extends Component{
 
           </section>
           {this.state.show &&
-          <Form time={this.state.timeSlots} userInfo={this.props.userInfo}
+          <Form time={this.state.available} userInfo={this.props.userInfo}
             table={this.state.table} guests={this.state.guests}/> }
         </div>
       );

@@ -2,22 +2,38 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './Form.css';
 
+//Component
+import Time from '../Options/Time'
+
 class Form extends Component {
   constructor(props){
-    console.log('Mounted')
     super(props);
     let { loggedIn, first, last, email, phone } = props.userInfo
     this.state = {
+      available: props.time,
       loggedIn: loggedIn,
       first: first,
       last: last,
       email: email,
       phone: phone,
-      time: [],
+      time: '',
       table: props.table,
       guests: props.guests,
+      other: '',
       show: props.show
     }
+  }
+
+  handleTimeSelect = ({target: {value}}) => {
+    this.setState({
+      time: value
+    })
+  }
+
+  handleRequestChange = ({target: {value}}) => {
+    this.setState({
+      other: value
+    })
   }
 
   handleSubmit = (event) => {
@@ -30,7 +46,8 @@ class Form extends Component {
       phone: this.state.phone,
       guests: this.state.guests,
       time: this.state.time,
-      table: this.state.table
+      table: this.state.table,
+      other: this.state.other
     })
     .then( (response) => {
       // response === 200 ? this.formSubmitted() : throw error
@@ -47,10 +64,8 @@ class Form extends Component {
   render(){
     return (
       <div>
-        <section className={`${this.props.show === true ? 'displayForm': 'reserve'} main`}>
-          <h2>Reserve Table</h2>
-          <form onSubmit={this.handleSubmit}>
-            <legend>Customer Info</legend>
+        <section className="displayForm main">
+          <h2>Confirm Reservation</h2>
 
             <input id="first" placeholder="First Name" name="first" defaultValue={this.state.first} />
 
@@ -63,6 +78,12 @@ class Form extends Component {
             <input className="selector" name="guests"  defaultValue={this.state.guests} />
 
             <input className="selector" id="table" name="table" defaultValue={this.state.table} />
+
+          <form onSubmit={this.handleSubmit}>
+
+            <Time className="selector" id="time" name="time" value={this.state.time} onChange={this.handleTimeSelect} time={this.state.available}/>
+
+            <input type="text" name="special" id="requests" defaultValue={this.state.value} onChange={this.handleRequestChange} />
 
             <input id="btn" type="submit" defaultValue="Submit" onSubmit={this.handleSubmit} />
 
