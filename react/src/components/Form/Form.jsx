@@ -29,7 +29,7 @@ class Form extends Component {
     let format = `${number.replace(/\D/g, '')}`
     let match = format.match(/^(\d{3})(\d{3})(\d{4})$/);
     this.setState({
-      formatNum: "(" + match[1] + ") " + match[2] + "-" + match[3]
+      formatNum:`(${match[1]}) ${match[2]}-${match[3]}`
     })
   }
 
