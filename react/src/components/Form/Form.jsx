@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import './Form.css';
 
 class Form extends Component {
   constructor(props){
+    console.log('Mounted')
     super(props);
-    let { loggedIn, first, last, email, phone } = this.props.userInfo
+    let { loggedIn, first, last, email, phone } = props.userInfo
     this.state = {
       loggedIn: loggedIn,
       first: first,
@@ -12,10 +14,32 @@ class Form extends Component {
       email: email,
       phone: phone,
       time: [],
-      table: this.props.table,
-      guests: this.props.guests,
-      show: this.props.show
+      table: props.table,
+      guests: props.guests,
+      show: props.show
     }
+  }
+
+  handleSubmit = (event) => {
+    // const error = new Error('Form was not submitted')
+    event.preventDefault()
+    axios.post('http://localhost:8080/api/reserve', {
+      first: this.state.first,
+      last: this.state.last,
+      email: this.state.email,
+      phone: this.state.phone,
+      guests: this.state.guests,
+      time: this.state.time,
+      table: this.state.table
+    })
+    .then( (response) => {
+      // response === 200 ? this.formSubmitted() : throw error
+      console.log(response)
+    })
+    .catch(function (error) {
+      console.log(error)
+    });
+
   }
 
 

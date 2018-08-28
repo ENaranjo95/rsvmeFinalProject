@@ -39,7 +39,8 @@ module.exports = function(app, passport, db) {
     app.get('/api/reserved', function(req, res){
       db.collection('reserve').find().toArray((err, results) => {
         if (err) return console.log(err)
-        res.json(results)
+        let rsvp = results.filter( item => item.checkIn === false )
+        return res.json(rsvp)
       })
     });
 
