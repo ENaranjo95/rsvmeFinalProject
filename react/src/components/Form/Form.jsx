@@ -16,12 +16,21 @@ class Form extends Component {
       last: last,
       email: email,
       phone: phone,
+      formatNum: '',
       time: '',
       table: props.table,
       guests: props.guests,
-      other: '',
+      special: '',
       show: props.show
     }
+  }
+  componentDidMount = () =>{
+    let number = this.state.phone
+    let format = `${number.replace(/\D/g, '')}`
+    let match = format.match(/^(\d{3})(\d{3})(\d{4})$/);
+    this.setState({
+      formatNum: "(" + match[1] + ") " + match[2] + "-" + match[3]
+    })
   }
 
   handleTimeSelect = ({target: {value}}) => {
@@ -65,25 +74,28 @@ class Form extends Component {
     return (
       <div>
         <section className="displayForm main">
-          <h2>Confirm Reservation</h2>
 
-            <input id="first" placeholder="First Name" name="first" defaultValue={this.state.first} />
-
-            <input id="last" placeholder="Last Name" name="last" defaultValue={this.state.last} />
-
-            <input id="mail" type="email" placeholder="Email" name="email" defaultValue={this.state.email} />
-
-            <input id="number" type="tel" placeholder="(888)-888-8888" name="phone" defaultValue={this.state.phone} />
-
-            <input className="selector" name="guests"  defaultValue={this.state.guests} />
-
-            <input className="selector" id="table" name="table" defaultValue={this.state.table} />
+          <section className="rsvpForm">
+            <h3>Please confirm your information</h3>
+            <p>This reservation is set for {this.state.first} {this.state.last}</p>
+            <section className="twin">
+              <label htmlFor="email">Email:</label>
+              <p id="email">{this.state.email}</p>
+            </section>
+            <section className="twin">
+              <p>By providng your mobile number, you agree to receive text messages from RSVME. RSVME will only text you about your reservation.</p>
+              <label htmlFor="phone">Mobile:</label>
+              <p id="phone">{this.state.formatNum}</p>
+            </section>
+          </section>
 
           <form onSubmit={this.handleSubmit}>
 
+            <h3>Confirm Reservation</h3>
+
             <Time className="selector" id="time" name="time" value={this.state.time} onChange={this.handleTimeSelect} time={this.state.available}/>
 
-            <input type="text" name="special" id="requests" defaultValue={this.state.value} onChange={this.handleRequestChange} />
+            <input type="text" name="special" id="requests" placeholder="Special Requests?" defaultValue={this.state.value} onChange={this.handleRequestChange} />
 
             <input id="btn" type="submit" defaultValue="Submit" onSubmit={this.handleSubmit} />
 
