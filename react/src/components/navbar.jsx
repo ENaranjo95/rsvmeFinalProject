@@ -16,7 +16,8 @@ class Navbar extends Component {
 
     logout(event) {
         event.preventDefault()
-        axios.post('http://localhost:7000/user/logout').then(response => {
+        axios.post('http://localhost:7000/user/logout')
+        .then(response => {
           if (response.status === 200) {
             this.setState({
               redirectTo: null
@@ -29,7 +30,7 @@ class Navbar extends Component {
               phone: null
             })
           }
-        }).catch(error => {
+        }).catch(error => { console.log(error)
         })
       }
 

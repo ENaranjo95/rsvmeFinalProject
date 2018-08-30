@@ -7,11 +7,10 @@ import Time from '../Options/Time'
 
 class Form extends Component {
   constructor(props){
-    console.log('mounted')
     super(props);
     let { loggedIn, first, last, email, phone } = props.userInfo
     this.state = {
-      available: props.time,
+      available: props.available,
       loggedIn: loggedIn,
       first: first,
       last: last,
@@ -47,7 +46,7 @@ class Form extends Component {
   }
 
   handleSubmit = (event) => {
-    // event.preventDefault()
+    event.preventDefault()
     axios.post('http://localhost:8080/api/reserve', {
       first: this.state.first,
       last: this.state.last,
@@ -59,9 +58,9 @@ class Form extends Component {
       other: this.state.other
     })
     .then( (response) => {
-      // if(response === 200){
-      //   this.props.formSubmitted()
-      // }
+      if(response.status === 200){
+        this.props.confirmation()
+      }
       console.log(response)
     })
     .catch( (err) => {

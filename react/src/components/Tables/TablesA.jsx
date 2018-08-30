@@ -4,7 +4,7 @@ import './Tables.css';
 class TablesA extends Component {
 
   onClick = (table) => {
-    this.props.form(table)
+    this.props.rsvp(table)
   }
 
   render(){

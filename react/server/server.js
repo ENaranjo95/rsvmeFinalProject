@@ -1,13 +1,12 @@
-console.log('server.js')
-const express = require('express')
-const bodyParser = require('body-parser')
-const morgan = require('morgan')
-const session = require('express-session')
-const dbConnection = require('./database')
-const MongoStore = require('connect-mongo')(session)
-const passport = require('./passport');
-const app = express()
-const PORT = 7000
+const express 			= require('express')
+const bodyParser 		= require('body-parser')
+const morgan 				= require('morgan')
+const session 			= require('express-session')
+const dbConnection 	= require('./database')
+const MongoStore 		= require('connect-mongo')(session)
+const passport 			= require('./passport');
+const app 					= express()
+const port 					= process.env.PORT || 7000
 // Route requires
 const user = require('./routes/user')
 
@@ -21,8 +20,8 @@ app.use(
 	session({
 		secret: 'fraggle-rock', //pick a random string to make the hash that is generated secure
 		store: new MongoStore({ mongooseConnection: dbConnection }),
-		resave: false, //required
-		saveUninitialized: false //required
+		resave: true, //required
+		saveUninitialized: true //required
 	})
 )
 
@@ -36,11 +35,11 @@ app.use(function(req, res, next) {
 app.use(passport.initialize())
 app.use(passport.session()) // calls the deserializeUser
 
-
+console.log(`This is from server ${user}`)
 // Routes
 app.use('/user', user)
 
 // Starting Server
-app.listen(PORT, () => {
-	console.log(`App listening on PORT: ${PORT}`)
+app.listen(port, () => {
+	console.log(`App listening on PORT: ${port}`)
 })

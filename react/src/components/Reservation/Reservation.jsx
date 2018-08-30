@@ -10,7 +10,7 @@ import TablesC from '../Tables/TablesC';
 import TablesD from '../Tables/TablesD';
 import Other from '../Tables/Other';
 import Form from '../Form/Form';
-// import FormSubmit from '../Form/FormSubmit';
+import FormSubmitted from '../Form/FormSubmit';
 import './Reservation.css';
 
 
@@ -22,11 +22,11 @@ class Reservation extends Component{
       timeSlots: [],
       available: [],
       reserved: [],
-      time: null,
       table: null,
       guests: null,
       redirectTo: '/',
-      show: null
+      rsvpForm: null,
+      confirmation: null
     }
   }
   componentDidMount = () => {
@@ -66,10 +66,10 @@ class Reservation extends Component{
     console.log(available)
     this.setState({
       available: available
-    }, this.modal())
+    }, this.openForm())
   }
 
-  openForm = (table) =>{
+  rsvp = (table) =>{
     let reserved = this.state.reserved
     let rsvpTable = reserved.filter( slot => reserved.table === table.id)
     this.filterTime(rsvpTable)
@@ -79,15 +79,28 @@ class Reservation extends Component{
     })
   }
 
-  modal = () => {
+  openForm = () => {
     this.setState({
-      show: true
+      rsvpForm: true
     })
   }
 
   closeForm = () => {
     this.setState({
-      show: false
+      rsvpForm: false
+    })
+  }
+
+  confirmation = () => {
+    this.setState({
+      rsvpForm: false,
+      confirmation: true
+    })
+  }
+
+  closeConfirmation = () => {
+    this.setState({
+      confirmation: false
     })
   }
 
@@ -99,20 +112,25 @@ class Reservation extends Component{
         <div>
           <section id="displayTable" className="clearfix">
 
-            <TablesA form={this.openForm} reserved={this.state.reserved} />
+            <TablesA rsvp={this.rsvp} reserved={this.state.reserved} />
 
-            <TablesB form={this.openForm} reserved={this.state.reserved} />
+            <TablesB rsvp={this.rsvp} reserved={this.state.reserved} />
 
-            <TablesC form={this.openForm} reserved={this.state.reserved} />
+            <TablesC rsvp={this.rsvp} reserved={this.state.reserved} />
 
-            <TablesD form={this.openForm} reserved={this.state.reserved} />
+            <TablesD rsvp={this.rsvp} reserved={this.state.reserved} />
 
             <Other />
 
           </section>
-          {this.state.show &&
-          <Form time={this.state.available} userInfo={this.props.userInfo}
-            table={this.state.table} guests={this.state.guests} onClick={this.closeForm}/> }
+          {this.state.rsvpForm &&
+          <Form available={this.state.available} userInfo={this.props.userInfo} confirmation={this.confirmation}
+            table={this.state.table} guests={this.state.guests} onClick={this.closeForm} /> }
+
+          {this.state.confirmation &&
+            <FormSubmitted onClick={this.closeConfirmation}/>
+
+          }
         </div>
       );
     }

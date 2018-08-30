@@ -58,6 +58,7 @@ router.get('/', (req, res, next) => {
 
 
 router.post('/logout', (req, res) => {
+  console.log(req.user)
     if (req.user) {
         req.logout()
         res.send({ msg: 'logging out' })

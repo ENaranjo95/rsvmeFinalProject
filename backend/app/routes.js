@@ -54,7 +54,7 @@ module.exports = function(app, passport, db) {
 
     // This is the collection for customer orders
     app.post('/api/reserve', (req, res) => {
-      db.collection('reserve').save({first: req.body.first, last: req.body.last, email: req.body.email, number: req.body.phone, guests: req.body.guests, time: req.body.time, table: req.body.table, checkIn: false}, (err, result) => {
+      db.collection('reserve').save({first: req.body.first, last: req.body.last, email: req.body.email, number: req.body.phone, guests: req.body.guests, time: req.body.time, table: req.body.table, special: req.body.special, checkIn: false}, (err, result) => {
         if (err) return console.log(err)
         console.log('saved to database')
         sendText(req, res)
