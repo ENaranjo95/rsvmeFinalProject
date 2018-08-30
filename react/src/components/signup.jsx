@@ -15,9 +15,8 @@ class Signup extends Component {
 			redirectTo: null
 		}
 	}
-	handleChange = (event) => {
-		let target = event.target
-		let value = event.target.value
+	handleChange = ({target}) => {
+		let value = target.value
 		let name = target.name
 		this.setState({
 			[name]: value
@@ -35,7 +34,7 @@ class Signup extends Component {
 			password: this.state.password
 		})
 		.then(response => {
-			let {first, last, email, phone } = response.data
+			const {first, last, email, phone } = response.data
 			if (!response.data.errmsg) {
 				this.props.updateUser({
 						loggedIn: true,
@@ -91,7 +90,7 @@ render() {
 										<label className="form-label" htmlFor="phone">Phone Number:</label>
 								</div>
 								<div className="col-3 col-mr-auto">
-										<input className="form-input" type="text" id="phone" name="phone" placeholder="Phone Number" value={this.state.username} onChange={this.handleChange} />
+										<input className="form-input" type="tel" id="phone" name="phone" placeholder="(888) 888-8888" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value={this.state.username} onChange={this.handleChange} />
 								</div>
 						</div>
 						<div className="form-group">

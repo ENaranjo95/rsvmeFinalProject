@@ -35,7 +35,6 @@ app.use(function(req, res, next) {
 app.use(passport.initialize())
 app.use(passport.session()) // calls the deserializeUser
 
-console.log(`This is from server ${user}`)
 // Routes
 app.use('/user', user)
 

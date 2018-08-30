@@ -35,7 +35,7 @@ router.post('/login', (req, res, next) => {
     },
     passport.authenticate('local'),
     (req, res) => {
-      let {first, last, email, phone} = req.user
+      const {first, last, email, phone} = req.user
         var userInfo = {
           first: first,
           last: last,
