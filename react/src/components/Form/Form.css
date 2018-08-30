@@ -1,39 +1,82 @@
 /* Form CSS */
+.overlay{
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,.4);
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+#close{
+  font-size: 1.4rem;
+  border: none;
+  float: right;
+}
+#close:hover{
+  border: 1px solid grey;
+}
 .displayForm{
   display: block;
-  z-index: auto;
 }
-
-.main {
+.displayForm.main {
   position:fixed;
   background: white;
   width: 80%;
   height: 500px;
+  padding: 1.5em 1em 1em 1em;
   border-radius: 10px;
   border: 1px solid black;
   top:50%;
   left:50%;
   transform: translate(-50%,-50%);
-  z-index: 1;
+  z-index: 4;
+  max-width: 540px;
+  font-size: 20px;
+  color: black;
+  overflow: scroll;
 }
 
-.reserveForm legend{
-  font-size: 1.6rem;
+.twin{
+  width: 50%;
+  margin-bottom: 10px;
+  float: left;
+}
+.twin label{
+  margin-right: 5px;
+  color: grey;
+  display: inline;
+}
+.twin p{
+  color: black;
+  display: inline;
+}
+.smallText{
+  padding: 0 30px 0 30px;
+  font-size: .6em;
+}
+.rsvpSize{
+  font-size: .8em;
+}
+form{
+  text-align: center;
+}
+.selector{
+   font-size: 16px;
+   height: 29px;
+   padding: 5px;
+   width: 300px;
+   margin: 4px 0 4px 0;
+   background: transparent #000;
+   border: none;
 }
 #requests{
   font-size: 1rem;
   height: 30px;
-  width: 70%;
+  width: 300px;
   margin: 5px 5px 5px 0;
-}
-.selector{
-   font-size: 14px;
-   height: 29px;
-   padding: 5px; /* If you add too much padding here, the options won't show in IE */
-   width: 260px;
-   margin: 2px 0 2px 0;
-   background: transparent #000;
-   border: none;
 }
 #btn{
   font-size: 1rem;

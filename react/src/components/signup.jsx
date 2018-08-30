@@ -6,13 +6,14 @@ class Signup extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			first: '',
-			last: '',
-			email: '',
-			phone: '',
+			first: null,
+			last: null,
+			email: null,
+			phone: null,
 			password: '',
-			confirmPassword: '',
-			redirectTo: null
+			confirmPassword: null,
+			redirectTo: null,
+			error: null
 		}
 	}
 	handleChange = ({target}) => {
@@ -22,10 +23,15 @@ class Signup extends Component {
 			[name]: value
 		})
 	}
-	handleSubmit = (event) => {
+	checkPassword = (event) => {
 		event.preventDefault()
-
-		//request to server to add a new username/password
+		if(this.state.password !== this.state.confirmPassword ){
+			this.setState({ error: 'Passwords do not match!'})
+		}else{
+			this.handleSubmit()
+		}
+	}
+	handleSubmit = () => {
 		axios.post('http://localhost:7000/user/signup', {
 			first: this.state.first,
 			last: this.state.last,
@@ -47,9 +53,10 @@ class Signup extends Component {
 				this.setState({
 					redirectTo: '/reserve'
 				})
-			} else {
 			}
-		}).catch(error => {})
+		}).catch(error => {
+			console.log(error)
+		})
 	}
 
 
@@ -90,7 +97,7 @@ render() {
 										<label className="form-label" htmlFor="phone">Phone Number:</label>
 								</div>
 								<div className="col-3 col-mr-auto">
-										<input className="form-input" type="tel" id="phone" name="phone" placeholder="(888) 888-8888" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value={this.state.username} onChange={this.handleChange} />
+										<input className="form-input" type="tel" id="phone" name="phone" placeholder="(888) 888-8888" value={this.state.username} onChange={this.handleChange} />
 								</div>
 						</div>
 						<div className="form-group">
@@ -98,13 +105,22 @@ render() {
 								<label className="form-label" htmlFor="password">Password: </label>
 							</div>
 							<div className="col-3 col-mr-auto">
-								<input className="form-input" placeholder="password" type="password" name="password" value={this.state.password} onChange={this.handleChange} />
+								<input className="form-input" placeholder="Password" type="password" name="password" value={this.state.password} onChange={this.handleChange} />
+							</div>
+						</div>
+						<div className="form-group">
+							<div className="col-1 col-ml-auto">
+								<label className="form-label" htmlFor="password">Confirm Password: </label>
+							</div>
+							<div className="col-3 col-mr-auto">
+								<input className="form-input" placeholder="Confirm password" type="password" name="confirmPassword" value={this.state.confirmPasswordpassword} onChange={this.handleChange} />
 							</div>
 						</div>
 						<div className="form-group ">
 							<div className="col-7"></div>
-							<button className="btn btn-primary col-1 col-mr-auto" onClick={this.handleSubmit} type="submit">Sign up</button>
+							<button className="btn btn-primary col-1 col-mr-auto" onClick={this.checkPassword} type="submit">Sign up</button>
 						</div>
+						{this.state.error}
 					</form>
 				</div>
 			);

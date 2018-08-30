@@ -6,12 +6,12 @@ class Time extends Component {
   render(){
     const time = this.props.time
     const first = {
-      value: 'false',
-      name: 'Choose Time'
+      value: null,
+      display: 'Choose Time'
     }
     return (
       <select name={this.props.name} onChange={this.props.onChange} className={this.props.className}>
-        <option value={first.value}> {first.name} </option>
+        <option value={first.value}> {first.display} </option>
          { time.map((hour) => {
            let format = hour.format('hh:mm a')
              return <option value={format} key={format}>
