@@ -1,6 +1,9 @@
 # Database
 /server/database/index.js
 
+# Twilio
+/server/services
+
 # dependencies
 /node_modules
 
