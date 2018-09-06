@@ -38,4 +38,4 @@ The React Framework is asychronous so have to be aware of race conditions, the b
 
 ## Contribution
 
-I would love some feedback on how to improve this project. If you have any questions or comments please reach out through email: edwinx.naranjo@gmail. I look to building an amazing app with you!
+I would love some feedback on how to improve this project. If you have any questions or comments please reach out through email: edwinx.naranjo@gmail. I look forward to building an amazing app with you!
