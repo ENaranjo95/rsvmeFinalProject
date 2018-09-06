@@ -11,10 +11,9 @@ class Navbar extends Component {
         loggedIn: this.props.loggedIn,
         redirectTo: null
       }
-      this.logout = this.logout.bind(this)
     }
 
-    logout(event) {
+    logout = (event) => {
         event.preventDefault()
         axios.post('http://localhost:7000/user/logout')
         .then(response => {

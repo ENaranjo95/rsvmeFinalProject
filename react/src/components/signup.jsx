@@ -32,7 +32,7 @@ class Signup extends Component {
 		}
 	}
 	handleSubmit = () => {
-		axios.post('http://localhost:7000/user/signup', {
+		axios.post('/user/signup', {
 			first: this.state.first,
 			last: this.state.last,
 			email: this.state.email,

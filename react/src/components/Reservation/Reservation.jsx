@@ -34,8 +34,9 @@ class Reservation extends Component{
     this.reserved();
   }
   reserved = () =>{
-    axios.get('http://localhost:8080/api/reserved')
+    axios.get('/api/reserved')
     .then( response => {
+      console.log(response.data)
       this.setState({ reserved: response.data });
     })
     .catch(function (err) {
@@ -120,7 +121,14 @@ class Reservation extends Component{
 
             <TablesD rsvp={this.rsvp} reserved={this.state.reserved} />
 
-            <Other />
+            <section className="space">
+              <section className="column">
+                <div className="checkIn">Check In</div>
+              </section>
+              <section className="column">
+                <div className="bar">Bar</div>
+              </section>
+            </section>
 
           </section>
           {this.state.rsvpForm &&

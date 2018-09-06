@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Tables.css';
 
-class Other extends Component {
+class Other {
 
   render(){
     return (

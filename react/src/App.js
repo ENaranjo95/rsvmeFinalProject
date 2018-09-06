@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Route } from 'react-router-dom';
 // components
 import Signup from './components/signup.jsx';
@@ -20,32 +19,8 @@ class App extends Component {
     }
   }
 
-  componentDidMount = () => {
-    this.getUser()
-  }
-
   updateUser = (userObject) => {
     this.setState(userObject)
-  }
-
-  getUser = () => {
-    axios.get('http://localhost:7000/user/')
-    .then(response => {
-      if (response.data.user) {
-        this.setState({
-          loggedIn: true,
-          email: response.data.user.email
-        })
-      } else {
-        this.setState({
-          loggedIn: false,
-          first: null,
-          last: null,
-          email: null,
-          phone: null
-        })
-      }
-    })
   }
 
   componentWillUnmount = () => {

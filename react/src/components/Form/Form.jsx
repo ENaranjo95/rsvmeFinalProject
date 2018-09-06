@@ -60,7 +60,7 @@ class Form extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    axios.post('http://localhost:8080/api/reserve', {
+    axios.post('/api/reserve', {
       first: this.state.first,
       last: this.state.last,
       email: this.state.email,

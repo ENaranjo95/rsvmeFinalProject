@@ -10,7 +10,8 @@ router.post('/signup', (req, res) => {
     User.findOne({ email: email }, (err, user) => {
         if (err) {
         } else if (user) {
-            res.json({
+          console.log(user)
+            return res.json({
                 error: `Sorry, there's already an account with this email: ${email}`
             })
         }
