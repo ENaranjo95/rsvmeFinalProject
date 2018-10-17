@@ -12,9 +12,8 @@ class LoginForm extends Component {
         }
     }
 
-    handleChange = (event) => {
-      let target = event.target
-      let value = event.target.value
+    handleChange = ({target}) => {
+      let value = target.value
       let name = target.name
         this.setState({
             [name]: value
@@ -23,7 +22,7 @@ class LoginForm extends Component {
 
     handleSubmit = (event) => {
       event.preventDefault()
-      axios.post('/user/login', {
+      axios.post('http://localhost:8080/user/login', {
         email: this.state.email,
         password: this.state.password
       })

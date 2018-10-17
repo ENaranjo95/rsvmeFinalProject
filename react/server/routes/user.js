@@ -8,6 +8,8 @@ router.post('/signup', (req, res) => {
     const { first, last, email, phone, password } = req.body
     // ADD VALIDATION
     User.findOne({ email: email }, (err, user) => {
+      console.log({email: email})
+      console.log(user)
         if (err) {
         } else if (user) {
           console.log(user)
@@ -25,7 +27,7 @@ router.post('/signup', (req, res) => {
             })
             newUser.save((err, savedUser) => {
                 if (err) return res.json(err)
-                res.json(savedUser)
+                return res.json(savedUser)
             })
         }
     })
@@ -43,28 +45,27 @@ router.post('/login', (req, res, next) => {
           email: email,
           phone: phone,
         };
-        res.send(userInfo);
+        return res.send(userInfo);
     }
 )
 
-router.get('/', (req, res, next) => {
-    console.log('===== user!!======')
-    console.log(req.user)
-    if (req.user) {
-        res.json({ user: req.user })
-    } else {
-        res.json({ user: null })
-    }
-})
+// router.get('/', (req, res, next) => {
+//     console.log('===== user!!======')
+//     console.log(req.user)
+//     if (req.user) {
+//         return res.json({ user: req.user })
+//     } else {
+//         return res.json({ user: null })
+//     }
+// })
 
 
 router.post('/logout', (req, res) => {
-  console.log(req.user)
     if (req.user) {
         req.logout()
-        res.send({ msg: 'logging out' })
+        return res.send({ msg: 'logging out' })
     } else {
-        res.send({ msg: 'no user to log out' })
+        return res.send({ msg: 'no user to log out' })
     }
 })
 

@@ -26,13 +26,12 @@ class Form extends Component {
     }
   }
   componentDidMount = () =>{
-    let number = this.state.phone
-    let format = `${number.replace(/\D/g, '')}`
-    let match = format.match(/^(\d{3})(\d{3})(\d{4})$/);
+    let number  = this.state.phone
+    let format  = `${number.replace(/\D/g, '')}`
+    let match   = format.match(/^(\d{3})(\d{3})(\d{4})$/);
     this.setState({
       formatNum:`(${match[1]}) ${match[2]}-${match[3]}`
     })
-    console.log(this.state.time)
   }
 
   handleTimeSelect = ({target: {value}}) => {
@@ -47,10 +46,9 @@ class Form extends Component {
     })
   }
 
-  checkTimeSelect = (event) => {
-    event.preventDefault()
+  checkTimeSelect = () => {
     if(this.state.time){
-      this.handleSubmit()
+      return true
     }else{
       this.setState({
         error: 'Please select a time.'
@@ -60,25 +58,28 @@ class Form extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    axios.post('/api/reserve', {
-      first: this.state.first,
-      last: this.state.last,
-      email: this.state.email,
-      phone: this.state.phone,
-      guests: this.state.guests,
-      time: this.state.time,
-      table: this.state.table,
-      other: this.state.other
-    })
-    .then( (response) => {
-      if(response.status === 200){
-        this.props.confirmation()
-      }
-      console.log(response)
-    })
-    .catch( (err) => {
-      console.log(err)
-    });
+    if(this.checkTimeSelect()){
+      console.log('running')
+      axios.post('http://localhost:8080/api/reserve', {
+        first: this.state.first,
+        last: this.state.last,
+        email: this.state.email,
+        phone: this.state.phone,
+        guests: this.state.guests,
+        time: this.state.time,
+        table: this.state.table,
+        other: this.state.other
+      })
+      .then( (response) => {
+        if(response.status === 200){
+          this.props.confirmation()
+        }
+        console.log(response)
+      })
+      .catch( (err) => {
+        console.log(err)
+      });
+    }
   }
 
 
@@ -116,7 +117,7 @@ class Form extends Component {
 
               <input type="text" name="special" id="requests" placeholder="Special Requests?" value={this.state.value} onChange={this.handleRequestChange} />
 
-              <button id="btn" type="button" onClick={this.checkTimeSelect}>Submit</button>
+              <button id="btn" type="submit" onClick={this.handleSubmit}>Submit</button>
 
             </form>
           </section>

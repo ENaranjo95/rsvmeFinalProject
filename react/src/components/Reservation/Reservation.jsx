@@ -8,7 +8,6 @@ import TablesA from '../Tables/TablesA';
 import TablesB from '../Tables/TablesB';
 import TablesC from '../Tables/TablesC';
 import TablesD from '../Tables/TablesD';
-import Other from '../Tables/Other';
 import Form from '../Form/Form';
 import FormSubmitted from '../Form/FormSubmit';
 import './Reservation.css';
@@ -29,17 +28,20 @@ class Reservation extends Component{
       confirmation: null
     }
   }
+
   componentDidMount = () => {
     this.timeSlots();
     this.reserved();
   }
+
   reserved = () =>{
-    axios.get('/api/reserved')
+    axios.get('http://localhost:8080/api/reserved')
     .then( response => {
       console.log(response.data)
       this.setState({ reserved: response.data });
     })
-    .catch(function (err) {
+    .catch( (err) => {
+      console.log(err)
     });
   }
 
@@ -47,7 +49,7 @@ class Reservation extends Component{
     let counter =  moment().startOf("day").hour(11)
     let end =  moment().startOf("day").hour(22)
 
-    const timeSlots = []
+    let timeSlots = []
 
     while( counter.isSameOrBefore(end)){
       timeSlots.push( counter.clone() )
@@ -64,7 +66,6 @@ class Reservation extends Component{
     let time = slot.format('hh:mm a')
       return !rsvpTable.includes( time );
     });
-    console.log(available)
     this.setState({
       available: available
     }, this.openForm())

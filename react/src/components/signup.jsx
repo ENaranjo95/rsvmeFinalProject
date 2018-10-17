@@ -19,12 +19,16 @@ class Signup extends Component {
 	handleChange = ({target}) => {
 		let value = target.value
 		let name = target.name
+		console.log(name)
 		this.setState({
 			[name]: value
 		})
+		console.log(this.state)
 	}
-	checkPassword = (event) => {
+
+	checkFields = (event) => {
 		event.preventDefault()
+
 		if(this.state.password !== this.state.confirmPassword ){
 			this.setState({ error: 'Passwords do not match!'})
 		}else{
@@ -32,7 +36,7 @@ class Signup extends Component {
 		}
 	}
 	handleSubmit = () => {
-		axios.post('/user/signup', {
+		axios.post('http://localhost:8080/user/signup', {
 			first: this.state.first,
 			last: this.state.last,
 			email: this.state.email,
@@ -59,8 +63,8 @@ class Signup extends Component {
 		})
 	}
 
-
 render() {
+	const style = {color: 'red', display: 'block'}
 	if (this.state.redirectTo) {
 			return <Redirect to={{ pathname: this.state.redirectTo }} />
 	} else {
@@ -120,7 +124,7 @@ render() {
 							<div className="col-7"></div>
 							<button className="btn btn-primary col-1 col-mr-auto" onClick={this.checkPassword} type="submit">Sign up</button>
 						</div>
-						{this.state.error}
+						{ this.state.error &&  <span style={style}> {this.state.error} </span> }
 					</form>
 				</div>
 			);

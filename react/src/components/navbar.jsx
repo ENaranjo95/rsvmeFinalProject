@@ -15,7 +15,7 @@ class Navbar extends Component {
 
     logout = (event) => {
         event.preventDefault()
-        axios.post('http://localhost:7000/user/logout')
+        axios.post('http://localhost:8080/user/logout')
         .then(response => {
           if (response.status === 200) {
             this.setState({
